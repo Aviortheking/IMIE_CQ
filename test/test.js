@@ -27,18 +27,25 @@ describe("Test de l'index.js", () => {
 describe('APIController', () => {
     it(" Doit retourner le resultat de l'appel à la méthode ?all de l'API, possible que ce soit un objet vide ", () => {
         //Arrange
-        const apiController = new apiController()
         const data = []
-        const db = {}
-        const result = null
-        const rest = {
-            send: (value) => {},
+        const db = {
+            getAll: () => {
+                return data
+            },
+        }
+        const apiController = new apiController(db)
+
+        let result = null
+        const res = {
+            send: (value) => {
+                result = value
+            },
         }
 
         // Act
         apiController.all(req, res)
 
         // Assert
-        assert.equal(result, data)
+        assert.equal(result.result, data)
     })
 })
