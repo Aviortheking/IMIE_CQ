@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha"
+    "test": "mocha --recursive --watch"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -15,7 +15,9 @@
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
+    "assert": "^2.0.0",
     "mocha": "^8.0.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "prettier": "2.0.5"
   }
 }
