@@ -1,4 +1,5 @@
 const assert = require('assert')
+const IndexController = require('../Controller/IndexController')
 
 describe("Test de l'index.js", () => {
     it("Doit retourner une réponse 'SoftWare Quality Module'", () => {
