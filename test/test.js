@@ -46,6 +46,6 @@ describe('APIController', () => {
         apiController.all(req, res)
 
         // Assert
-        assert.equal(result.result, data)
+        assert.equal(result, data)
     })
 })
