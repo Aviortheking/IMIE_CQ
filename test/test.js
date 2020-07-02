@@ -1,5 +1,6 @@
 const assert = require('assert')
 const IndexController = require('../Controller/IndexController')
+const ApiController = require('../Controller/ApiController')
 
 describe("Test de l'index.js", () => {
     it("Doit retourner une réponse 'SoftWare Quality Module'", () => {
@@ -28,12 +29,13 @@ describe('APIController', () => {
     it(" Doit retourner le resultat de l'appel à la méthode ?all de l'API, possible que ce soit un objet vide ", () => {
         //Arrange
         const data = []
+        const req = {}
         const db = {
             getAll: () => {
                 return data
             },
         }
-        const apiController = new apiController(db)
+        const apiController = new ApiController(db)
 
         let result = null
         const res = {
