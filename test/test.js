@@ -83,6 +83,7 @@ describe('APIController', () => {
 
     it("Doit retouner le message 'Identifiant incorrect' si l'id n'existe pas", () => {
         //Arrange
+        const error = { message: 'Identifiant incorrect' }
         const req = {
             query: {
                 id: '',
@@ -106,6 +107,6 @@ describe('APIController', () => {
         apiController.single(req, res)
 
         // Assert
-        assert.equal(result, 'Identifiant incorrect')
+        assert.equal(result, error.message)
     })
 })
