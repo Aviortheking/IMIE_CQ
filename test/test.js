@@ -2,14 +2,15 @@ const assert = require('assert')
 const IndexController = require('../Controller/IndexController')
 const ApiController = require('../Controller/ApiController')
 const httpMocks = require('node-mocks-http')
+const ShopController = require('../Controller/ShopController')
 
 describe("Test de l'index.js", () => {
+    const indexController = new IndexController()
+
     it("Doit retourner une réponse 'SoftWare Quality Module'", () => {
         // Arrange
 
         const data = 'SoftWare Quality Module'
-        const indexController = new IndexController()
-
         var req = httpMocks.createRequest({
             method: 'GET',
             url: '/',
@@ -43,19 +44,43 @@ describe("Test de l'index.js", () => {
 
         assert.equal(res._getStatusCode(), httpCode.status)
     })
-    it("Doit retourner une réponse HTTP 404 si l'accès à la page index est impossible'", () => {
-        // Arrange
-        const httpCode = { status: 404 }
+})
+describe('Test de la page shop', () => {
+    const shopController = new ShopController()
 
+    it("Doit retourner une réponse 'Welcome in our Shop'", () => {
+        // Arrange
+
+        const data = 'Welcome in our Shop'
         var req = httpMocks.createRequest({
             method: 'GET',
-            url: '/',
+            url: '/shop',
         })
 
         var res = httpMocks.createResponse()
 
         // Act
-        indexController.index(req, res)
+        shopController.index(req, res)
+
+        // Assert
+
+        assert.equal(res._getData(), data)
+    })
+
+    it("Doit retourner une réponse HTTP 200 si on accede à la page shop'", () => {
+        // Arrange
+        const shopController = new ShopController()
+        const httpCode = { status: 200 }
+
+        var req = httpMocks.createRequest({
+            method: 'GET',
+            url: '/shop',
+        })
+
+        var res = httpMocks.createResponse()
+
+        // Act
+        shopController.index(req, res)
 
         // Assert
 
