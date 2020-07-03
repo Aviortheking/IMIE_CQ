@@ -145,7 +145,7 @@ describe('APIController', () => {
         var req = httpMocks.createRequest({
             method: 'GET',
             url: '/?id=999999999',
-            params: {
+            query: {
                 id: 999999999,
             },
         })
@@ -161,12 +161,10 @@ describe('APIController', () => {
         }
         const apiController = new ApiController(db)
 
-        let result = null
-
         // Act
         apiController.single(req, res)
 
         // Assert
-        assert.deepEqual(result, error.status)
+        assert.deepEqual(res.status, error.status)
     })
 })
