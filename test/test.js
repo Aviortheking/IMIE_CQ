@@ -102,7 +102,7 @@ describe('APIController', () => {
         apiController.single(req, res)
 
         // Assert
-        assert.deepEqual(res._getJSONData(), error.message)
+        assert.deepEqual(res._getJSONData(), error)
     })
 
     it("Doit retouner le message 'Identifiant incorrect' si l'id n'existe pas", () => {
@@ -130,7 +130,7 @@ describe('APIController', () => {
         apiController.single(req, res)
 
         // Assert
-        assert.deepEqual(res._getJSONData(), error.message)
+        assert.deepEqual(res._getJSONData(), error)
     })
 
     it("Doit retouner un code HTTP 404 si l'id est incorrect", () => {
