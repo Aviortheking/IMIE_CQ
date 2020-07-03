@@ -54,7 +54,7 @@ describe('APIController', () => {
     })
     it("Doit retouner le resultat de l'appel getByID par la route ?id=", () => {
         //Arrange
-        const data = 1
+        const data = { id: 1 }
         let resultDB = null
         const req = {
             query: {
