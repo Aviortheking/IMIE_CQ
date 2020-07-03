@@ -24,6 +24,43 @@ describe("Test de l'index.js", () => {
 
         assert.equal(res._getData(), data)
     })
+
+    it("Doit retourner une réponse HTTP 200 si on accede à la page index'", () => {
+        // Arrange
+        const httpCode = { status: 200 }
+
+        var req = httpMocks.createRequest({
+            method: 'GET',
+            url: '/',
+        })
+
+        var res = httpMocks.createResponse()
+
+        // Act
+        indexController.index(req, res)
+
+        // Assert
+
+        assert.equal(res._getStatusCode(), httpCode.status)
+    })
+    it("Doit retourner une réponse HTTP 404 si l'accès à la page index est impossible'", () => {
+        // Arrange
+        const httpCode = { status: 404 }
+
+        var req = httpMocks.createRequest({
+            method: 'GET',
+            url: '/',
+        })
+
+        var res = httpMocks.createResponse()
+
+        // Act
+        indexController.index(req, res)
+
+        // Assert
+
+        assert.equal(res._getStatusCode(), httpCode.status)
+    })
 })
 describe('APIController', () => {
     describe("Test des methode de l'API CONTROLLER", () => {
@@ -50,6 +87,30 @@ describe('APIController', () => {
             // Assert
             assert.deepEqual(res._getJSONData(), data)
         })
+    })
+    it('Doit retouner un code HTTP 200 si la methode all fonctionne', () => {
+        //Arrange
+        const data = []
+        var req = httpMocks.createRequest({
+            method: 'GET',
+            url: '/?all',
+        })
+
+        var res = httpMocks.createResponse()
+        const httpCode = { status: 200 }
+
+        const db = {
+            getAll: () => {
+                return data
+            },
+        }
+        const apiController = new ApiController(db)
+
+        // Act
+        apiController.all(req, res)
+
+        // Assert
+        assert.deepEqual(res._getStatusCode(), httpCode.status)
     })
     it("Doit retouner le resultat de l'appel getByID par la route ?id=", () => {
         //Arrange
