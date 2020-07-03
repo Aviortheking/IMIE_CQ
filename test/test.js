@@ -9,21 +9,20 @@ describe("Test de l'index.js", () => {
 
         const data = 'SoftWare Quality Module'
         const indexController = new IndexController()
-        let result = null
 
-        const req = {}
-        const res = {
-            send: (value) => {
-                result = value
-            },
-        }
+        var req = httpMocks.createRequest({
+            method: 'GET',
+            url: '/',
+        })
+
+        var res = httpMocks.createResponse()
 
         // Act
         indexController.index(req, res)
 
         // Assert
 
-        assert.equal(result, data)
+        assert.equal(res._getJSONData, data)
     })
 })
 describe('APIController', () => {
@@ -31,7 +30,13 @@ describe('APIController', () => {
         it(" Doit retourner le resultat de l'appel à la méthode ?all de l'API, possible que ce soit un objet vide ", () => {
             //Arrange
             const data = []
-            const req = {}
+            var req = httpMocks.createRequest({
+                method: 'GET',
+                url: '/?all',
+            })
+
+            var res = httpMocks.createResponse()
+
             const db = {
                 getAll: () => {
                     return data
@@ -39,28 +44,26 @@ describe('APIController', () => {
             }
             const apiController = new ApiController(db)
 
-            let result = null
-            const res = {
-                send: (value) => {
-                    result = value
-                },
-            }
-
             // Act
             apiController.all(req, res)
 
             // Assert
-            assert.equal(result, data)
+            assert.equal(res._getJSONData, data)
         })
     })
     it("Doit retouner le resultat de l'appel getByID par la route ?id=", () => {
         //Arrange
         const data = { id: 1 }
-        const req = {
+        var req = httpMocks.createRequest({
+            method: 'GET',
+            url: '/?id=1',
             query: {
                 id: '1',
             },
-        }
+        })
+
+        var res = httpMocks.createResponse()
+
         const db = {
             getByID: (id) => {
                 return data
@@ -68,28 +71,26 @@ describe('APIController', () => {
         }
         const apiController = new ApiController(db)
 
-        let result = null
-        const res = {
-            send: (value) => {
-                result = value
-            },
-        }
-
         // Act
         apiController.single(req, res)
 
         // Assert
-        assert.equal(result, data)
+        assert.equal(res._getJSONData, data)
     })
 
     it("Doit retouner le message 'Identifiant incorrect' si l'id est vide", () => {
         //Arrange
         const error = { message: 'Identifiant incorrect' }
-        const req = {
+        var req = httpMocks.createRequest({
+            method: 'GET',
+            url: '/?id=',
             query: {
                 id: '',
             },
-        }
+        })
+
+        var res = httpMocks.createResponse()
+
         const db = {
             getByID: (id) => {
                 return null
@@ -97,28 +98,27 @@ describe('APIController', () => {
         }
         const apiController = new ApiController(db)
 
-        let result = null
-        const res = {
-            send: (value) => {
-                result = value
-            },
-        }
-
         // Act
         apiController.single(req, res)
 
         // Assert
-        assert.deepEqual(result, error)
+        assert.deepEqual(res._getJSONData, error.message)
     })
 
     it("Doit retouner le message 'Identifiant incorrect' si l'id n'existe pas", () => {
         //Arrange
         const error = { message: 'Identifiant incorrect' }
-        const req = {
+
+        var req = httpMocks.createRequest({
+            method: 'GET',
+            url: '/?id=999999999',
             query: {
-                id: '9999999999',
+                id: 999999999,
             },
-        }
+        })
+
+        var res = httpMocks.createResponse()
+
         const db = {
             getByID: (id) => {
                 return null
@@ -126,18 +126,11 @@ describe('APIController', () => {
         }
         const apiController = new ApiController(db)
 
-        let result = null
-        const res = {
-            send: (value) => {
-                result = value
-            },
-        }
-
         // Act
         apiController.single(req, res)
 
         // Assert
-        assert.deepEqual(result, error)
+        assert.deepEqual(res._getJSONData, error.message)
     })
 
     it("Doit retouner un code HTTP 404 si l'id est incorrect", () => {
