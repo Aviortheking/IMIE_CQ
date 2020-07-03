@@ -138,4 +138,33 @@ describe('APIController', () => {
         // Assert
         assert.deepEqual(result, error)
     })
+
+    it("Doit retouner un code HTTP 404 si l'id est incorrect", () => {
+        //Arrange
+        const error = { status: 404 }
+        const req = {
+            query: {
+                id: '9999999999',
+            },
+        }
+        const db = {
+            getByID: (id) => {
+                return null
+            },
+        }
+        const apiController = new ApiController(db)
+
+        let result = null
+        const res = {
+            status: (value) => {
+                result = value
+            },
+        }
+
+        // Act
+        apiController.single(req, res)
+
+        // Assert
+        assert.deepEqual(result, error)
+    })
 })
