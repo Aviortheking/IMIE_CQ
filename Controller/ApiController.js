@@ -9,10 +9,11 @@ module.exports = class ApiController {
 	}
 
 	single(req, res) {
-		if (req.query.id === '') {
+		const entity = this.db.getByID(req.query.id)
+		if (req.query.id === '' || !entity) {
 			res.send({ message: 'Identifiant incorrect' })
 		} else {
-			res.send(this.db.getByID(req.query.id))
+			res.send(entity)
 		}
 	}
 }
