@@ -54,22 +54,23 @@ describe('APIController', () => {
     })
     it("Doit retouner le resultat de l'appel getByID par la route ?id=", () => {
         //Arrange
-        const data = []
+        const data = 1
+        let resultDB = null
         const req = {
             query: {
                 id: '1',
             },
         }
         const db = {
-            getByID: () => {
-                return data
+            getByID: (id) => {
+                resultDB = id
             },
         }
         const apiController = new ApiController(db)
 
         let result = null
         const res = {
-            getByID: (value) => {
+            send: (value) => {
                 result = value
             },
         }
