@@ -1,5 +1,5 @@
 module.exports = class IndexController {
 	index(req, res) {
-		res.send('SoftWare Quality Module')
+		res.status(200).send('SoftWare Quality Module')
 	}
 }
