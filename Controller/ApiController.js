@@ -5,15 +5,15 @@ module.exports = class ApiController {
 	}
 
 	all(req, res) {
-		res.send(this.db.getAll())
+		res.status(200).json(this.db.getAll())
 	}
 
 	single(req, res) {
 		const entity = this.db.getByID(req.query.id)
 		if (req.query.id === '' || !entity) {
-			res.send({ message: 'Identifiant incorrect' })
+			res.status(404).json({ message: 'Identifiant incorrect' })
 		} else {
-			res.send(entity)
+			res.status(200).json(entity)
 		}
 	}
 }
