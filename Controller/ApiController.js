@@ -7,4 +7,8 @@ module.exports = class ApiController {
 	all(req, res) {
 		res.send(this.db.getAll())
 	}
+
+	single(req, res) {
+		res.send(this.db.getByID(req.query.id))
+	}
 }
