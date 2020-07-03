@@ -83,7 +83,6 @@ describe('APIController', () => {
 
     it("Doit retouner le message 'Identifiant incorrect' si l'id n'existe pas", () => {
         //Arrange
-        const data = {}
         const req = {
             query: {
                 id: '',
@@ -91,7 +90,7 @@ describe('APIController', () => {
         }
         const db = {
             getByID: (id) => {
-                return data
+                return null
             },
         }
         const apiController = new ApiController(db)
@@ -107,6 +106,6 @@ describe('APIController', () => {
         apiController.single(req, res)
 
         // Assert
-        assert.equal(result.result, 'Identifiant incorrect')
+        assert.equal(result, 'Identifiant incorrect')
     })
 })
