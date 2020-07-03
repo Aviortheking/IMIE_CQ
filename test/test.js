@@ -76,7 +76,7 @@ describe('APIController', () => {
         }
 
         // Act
-        apiController.getByID(req, res)
+        apiController.single(req, res)
 
         // Assert
         assert.equal(result, data)
