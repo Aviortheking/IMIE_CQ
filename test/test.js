@@ -22,7 +22,7 @@ describe("Test de l'index.js", () => {
 
         // Assert
 
-        assert.equal(res.data(), data)
+        assert.equal(res._getData(), data)
     })
 })
 describe('APIController', () => {
