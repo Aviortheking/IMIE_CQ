@@ -158,6 +158,6 @@ describe('APIController', () => {
         apiController.single(req, res)
 
         // Assert
-        assert.deepEqual(res.status, error.status)
+        assert.deepEqual(res._getStatusCode(), error.status)
     })
 })
