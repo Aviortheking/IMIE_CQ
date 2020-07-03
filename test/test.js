@@ -22,7 +22,7 @@ describe("Test de l'index.js", () => {
 
         // Assert
 
-        assert.equal(res._getJSONData, data)
+        assert.equal(res._getJSONData(), data)
     })
 })
 describe('APIController', () => {
@@ -48,7 +48,7 @@ describe('APIController', () => {
             apiController.all(req, res)
 
             // Assert
-            assert.equal(res._getJSONData, data)
+            assert.equal(res._getJSONData(), data)
         })
     })
     it("Doit retouner le resultat de l'appel getByID par la route ?id=", () => {
@@ -75,7 +75,7 @@ describe('APIController', () => {
         apiController.single(req, res)
 
         // Assert
-        assert.equal(res._getJSONData, data)
+        assert.equal(res._getJSONData(), data)
     })
 
     it("Doit retouner le message 'Identifiant incorrect' si l'id est vide", () => {
@@ -102,7 +102,7 @@ describe('APIController', () => {
         apiController.single(req, res)
 
         // Assert
-        assert.deepEqual(res._getJSONData, error.message)
+        assert.deepEqual(res._getJSONData(), error.message)
     })
 
     it("Doit retouner le message 'Identifiant incorrect' si l'id n'existe pas", () => {
@@ -130,7 +130,7 @@ describe('APIController', () => {
         apiController.single(req, res)
 
         // Assert
-        assert.deepEqual(res._getJSONData, error.message)
+        assert.deepEqual(res._getJSONData(), error.message)
     })
 
     it("Doit retouner un code HTTP 404 si l'id est incorrect", () => {
