@@ -141,12 +141,18 @@ describe('APIController', () => {
 
     it("Doit retouner un code HTTP 404 si l'id est incorrect", () => {
         //Arrange
-        const error = { status: 404 }
-        const req = {
-            query: {
-                id: '9999999999',
+        var req = httpMocks.createRequest({
+            method: 'GET',
+            url: '/?id=999999999',
+            params: {
+                id: 999999999,
             },
-        }
+        })
+
+        var res = httpMocks.createResponse()
+
+        const error = { status: 404 }
+
         const db = {
             getByID: (id) => {
                 return null
@@ -155,16 +161,11 @@ describe('APIController', () => {
         const apiController = new ApiController(db)
 
         let result = null
-        const res = {
-            status: (value) => {
-                result = value
-            },
-        }
 
         // Act
         apiController.single(req, res)
 
         // Assert
-        assert.deepEqual(result, error)
+        assert.deepEqual(result, error.status)
     })
 })
