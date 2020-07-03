@@ -48,7 +48,7 @@ describe('APIController', () => {
             apiController.all(req, res)
 
             // Assert
-            assert.equal(res._getJSONData(), data)
+            assert.deepEqual(res._getJSONData(), data)
         })
     })
     it("Doit retouner le resultat de l'appel getByID par la route ?id=", () => {
@@ -75,7 +75,7 @@ describe('APIController', () => {
         apiController.single(req, res)
 
         // Assert
-        assert.equal(res._getJSONData(), data)
+        assert.deepEqual(res._getJSONData(), data)
     })
 
     it("Doit retouner le message 'Identifiant incorrect' si l'id est vide", () => {
