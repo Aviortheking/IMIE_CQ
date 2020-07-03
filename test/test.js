@@ -110,9 +110,9 @@ describe('APIController', () => {
         assert.deepEqual(result, error)
     })
 
-    it("Doit retouner le message 'Identifiant inconnue' si l'id n'existe pas", () => {
+    it("Doit retouner le message 'Identifiant incorrect' si l'id n'existe pas", () => {
         //Arrange
-        const error = { message: 'Identifiant inconnue' }
+        const error = { message: 'Identifiant incorrect' }
         const req = {
             query: {
                 id: '9999999999',
