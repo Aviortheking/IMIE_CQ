@@ -81,12 +81,41 @@ describe('APIController', () => {
         assert.equal(result, data)
     })
 
-    it("Doit retouner le message 'Identifiant incorrect' si l'id n'existe pas", () => {
+    it("Doit retouner le message 'Identifiant incorrect' si l'id est vide", () => {
         //Arrange
         const error = { message: 'Identifiant incorrect' }
         const req = {
             query: {
                 id: '',
+            },
+        }
+        const db = {
+            getByID: (id) => {
+                return null
+            },
+        }
+        const apiController = new ApiController(db)
+
+        let result = null
+        const res = {
+            send: (value) => {
+                result = value
+            },
+        }
+
+        // Act
+        apiController.single(req, res)
+
+        // Assert
+        assert.deepEqual(result, error)
+    })
+
+    it("Doit retouner le message 'Identifiant inconnue' si l'id n'existe pas", () => {
+        //Arrange
+        const error = { message: 'Identifiant inconnue' }
+        const req = {
+            query: {
+                id: '9999999999',
             },
         }
         const db = {
